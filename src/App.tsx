@@ -1,5 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Routes} from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './state/store';
 import Navigation from "./components/shared/Navigation";
 import ROUTES from "./routes";
 import List from './components/List';
@@ -67,12 +69,14 @@ import './App.css';
 
 const App = () => {
     return (
-        <BrowserRouter>
-            <Navigation />
-            <Routes>
-                {ROUTES}
-            </Routes>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Navigation />
+                <Routes>
+                    {ROUTES}
+                </Routes>
+            </BrowserRouter>
+        </Provider>
     )
 }
 

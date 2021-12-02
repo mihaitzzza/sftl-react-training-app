@@ -1,23 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import {RootState} from '../state/store';
+// import {load} from '../state/slices/products';
+import {fetchProducts} from '../state/slices/products';
+import { useSelector, useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 
 const Products = () => {
     const navigate = useNavigate();
+    const products = useSelector((state: RootState) => {
+        return state.products.products;
+    });
+    const dispatch = useDispatch();
 
-    const [products, setProducts] = useState([{
-        id: 1,
-        name: 'Product #1'
-    }, {
-        id: 2,
-        name: 'Product #2'
-    }, {
-        id: 3,
-        name: 'Product #3'
-    }, {
-        id: 4,
-        name: 'Product #4'
-    }]);
+    useEffect(() => {
+        dispatch(fetchProducts());
+    }, []);
 
     const navigateTo = (id: number) => {
         const path = `/products/${id}`;
